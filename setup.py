@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""The setup.py file for Save Your Time SSH."""
+
 from setuptools import setup, find_packages
+from pip.req import parse_requirements
+
+install_reqs = parse_requirements("requirements.txt", session='hack')
+reqs = [str(ir.req) for ir in install_reqs]
 
 
 with open('README.md') as f:
@@ -21,5 +27,6 @@ setup(
     packages=find_packages(exclude=('tests', 'docs')),
     scripts = ['bin/sytssh'],
     setup_requires=['pytest-runner'],
-    tests_require=['pytest']
+    tests_require=['pytest'],
+    install_requires=reqs
 )
