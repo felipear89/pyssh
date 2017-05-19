@@ -1,0 +1,5 @@
+# Runtime requirements
+--requirement requirements.txt
+
+# Testing
+pytest==3.0.7
