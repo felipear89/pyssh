@@ -1,1 +1,1 @@
-from .sytssh import main
+from .sytssh import *

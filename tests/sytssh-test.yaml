@@ -1,0 +1,12 @@
+project1:
+  host:
+    qa: nix-project1.qa.mycompany
+    prod: nix-project1.mycompany
+project2:
+  host:
+    qa: nix-project2.qa.mycompany
+    prod: nix-project2.mycompany
+project3:
+  host:
+    qa: nix-project3.qa.mycompany
+    prod: nix-project3.mycompany

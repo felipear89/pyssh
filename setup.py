@@ -5,28 +5,28 @@
 from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
-install_reqs = parse_requirements("requirements.txt", session='hack')
-reqs = [str(ir.req) for ir in install_reqs]
+REQUIREMENTS = parse_requirements('requirements.txt', session='hack')
+INSTALL_REQUIRES = [str(ir.req) for ir in REQUIREMENTS]
 
 
 with open('README.md') as f:
-    readme = f.read()
+    README = f.read()
 
 with open('LICENSE') as f:
-    license = f.read()
+    LICENSE = f.read()
 
 setup(
     name='sytssh',
     version='0.0.1',
     description='A ssh helper to save your time',
-    long_description=readme,
+    long_description=README,
     author='Felipe Alexandre Rodrigues',
     author_email='felipear89@gmail.com',
     url='https://github.com/kennethreitz/samplemod',
-    license=license,
+    license=LICENSE,
     packages=find_packages(exclude=('tests', 'docs')),
-    scripts = ['bin/sytssh'],
+    scripts=['bin/sytssh'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
-    install_requires=reqs
+    install_requires=INSTALL_REQUIRES
 )
