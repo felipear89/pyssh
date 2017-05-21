@@ -8,6 +8,6 @@ hosts:
     local: localhost:23
     qa: nix-project2.qa.mycompany
     prod: nix-project2.mycompany
-  project3:
-    qa: nix-project3.qa.mycompany
-    prod: nix-project3.mycompany
+  devops:
+    qa: nix-devops.qa.mycompany
+    prod: nix-devops-{1-3}.mycompany

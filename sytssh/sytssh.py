@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import re
 from os.path import expanduser
 import yaml
 import argcomplete
@@ -24,7 +25,7 @@ def parse_args(doc):
         parser_project = subparsers.add_parser(project)
         parser_project.add_argument('environment', choices=attr.keys(), \
             help='Choose the environment')
-        parser_project.add_argument('-n', help='Which instance of the host')
+        parser_project.add_argument('-n', help='Which instance of the host', type=int, default=0)
 
     argcomplete.autocomplete(parser)
     return parser.parse_args()
@@ -32,7 +33,7 @@ def parse_args(doc):
 def connect(doc, args):
     """ Connect to the server via SSH """
     value = doc['hosts'][args.project][args.environment]
-    hostname = get_hostname(value)
+    hostname = get_hostname(value, args.n)
     port = get_port(value, doc['port'])
 
     os.system('ssh {username}@{host} -p {port}'.format(host=hostname, \
@@ -42,8 +43,9 @@ def get_port(value, default_port):
     return value[value.find(':')+1:] if has_port(value) \
         else default_port
 
-def get_hostname(value):
-    return value if not has_port(value) else value[:value.find(':')]
+def get_hostname(value, n=0):
+    hostname = value if not has_port(value) else value[:value.find(':')]
+    return re.sub(r'\{.*\}', '%s' % n, hostname)
 
 def has_port(str):
     return ':' in str
