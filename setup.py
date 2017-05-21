@@ -22,7 +22,7 @@ setup(
     long_description=README,
     author='Felipe Alexandre Rodrigues',
     author_email='felipear89@gmail.com',
-    url='https://github.com/kennethreitz/samplemod',
+    url='https://github.com/felipear89/pyssh',
     license=LICENSE,
     packages=find_packages(exclude=('tests', 'docs')),
     scripts=['bin/sytssh'],
