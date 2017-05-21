@@ -20,9 +20,9 @@ def parse_args(doc):
     subparsers = parser.add_subparsers(help='Choose the project you want to connect', \
         dest='project')
 
-    for project, attr in doc.items():
+    for project, attr in doc['hosts'].items():
         parser_project = subparsers.add_parser(project)
-        parser_project.add_argument('environment', choices=attr['host'].keys(), \
+        parser_project.add_argument('environment', choices=attr.keys(), \
             help='Choose the environment')
         parser_project.add_argument('-n', help='Which instance of the host')
 
@@ -31,8 +31,22 @@ def parse_args(doc):
 
 def connect(doc, args):
     """ Connect to the server via SSH """
-    hostname = doc[args.project]["host"][args.environment]
-    os.system('ssh root@{host} -p 32768'.format(host=hostname))
+    value = doc['hosts'][args.project][args.environment]
+    hostname = get_hostname(value)
+    port = get_port(value, doc['port'])
+
+    os.system('ssh {username}@{host} -p {port}'.format(host=hostname, \
+        username=doc['username'], port=port))
+
+def get_port(value, default_port):
+    return value[value.find(':')+1:] if has_port(value) \
+        else default_port
+
+def get_hostname(value):
+    return value if not has_port(value) else value[:value.find(':')]
+
+def has_port(str):
+    return ':' in str
 
 def main():
     try:

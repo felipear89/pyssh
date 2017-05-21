@@ -1,12 +1,13 @@
-project1:
-  host:
+username: root
+port: 22
+hosts:
+  project1:
     qa: nix-project1.qa.mycompany
     prod: nix-project1.mycompany
-project2:
-  host:
+  project2:
+    local: localhost:23
     qa: nix-project2.qa.mycompany
     prod: nix-project2.mycompany
-project3:
-  host:
+  project3:
     qa: nix-project3.qa.mycompany
     prod: nix-project3.mycompany
