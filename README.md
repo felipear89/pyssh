@@ -1,6 +1,8 @@
 # pyssh
 A project to help to manage your ssh hosts
 
+![status](https://travis-ci.org/felipear89/sytssh.svg?branch=master)
+
 ## Auto complete
 
 ### Bash
