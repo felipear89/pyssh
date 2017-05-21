@@ -8,7 +8,7 @@ INSTALL_REQUIRES = [str(ir.req) for ir in REQUIREMENTS]
 
 setup(
     name='sytssh',
-    version='0.0.1',
+    version='0.0.2',
     description='A ssh helper to save your time',
     long_description='''
         Utility to manage your hosts and environments that you often need to connect
