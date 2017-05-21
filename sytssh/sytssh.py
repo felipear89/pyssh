@@ -39,7 +39,7 @@ def connect(doc, args):
     os.system('ssh {username}@{host} -p {port}'.format(host=hostname, \
         username=doc['username'], port=port))
 
-def get_port(value, default_port):
+def get_port(value, default_port=22):
     return value[value.find(':')+1:] if has_port(value) \
         else default_port
 
