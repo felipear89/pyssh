@@ -18,7 +18,11 @@ setup(
     url='https://github.com/felipear89/pyssh',
     license='GNU',
     packages=find_packages(exclude=('tests', 'docs')),
-    scripts=['bin/sytssh'],
+    entry_points={
+        'console_scripts': [
+            'sytssh = sytssh.sytssh:main'
+        ]
+    },
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     install_requires=INSTALL_REQUIRES
