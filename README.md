@@ -11,9 +11,5 @@ A project to help to manage your ssh hosts
 ### zsh
 
 ```
-$ autoload bashcompinit
-$ bashcompinit
-$ autoload compinit
-$ compinit
-$ eval "$(register-python-argcomplete sytssh)"
+$ autoload bashcompinit && bashcompinit && autoload compinit && compinit && eval "$(register-python-argcomplete sytssh)"
 ```
