@@ -6,7 +6,10 @@ A project to help to manage your ssh hosts
 ## Auto complete
 
 ### Bash
-`$ activate-global-python-argcomplete`
+```
+ $ activate-global-python-argcomplete
+ $ eval "$(register-python-argcomplete sytssh)"
+ ```
 
 ### zsh
 
