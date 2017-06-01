@@ -7,6 +7,7 @@ import re
 from os.path import expanduser
 import yaml
 import argcomplete
+from hostname_resolve import HostnameResolver
 
 CONFIG_PATH = expanduser('~/.sytssh.yaml')
 
@@ -33,22 +34,12 @@ def parse_args(doc):
 def connect(doc, args):
     """ Connect to the server via SSH """
     value = doc['hosts'][args.project][args.environment]
-    hostname = get_hostname(value, args.n)
-    port = get_port(value, doc['port'])
+    hostnameResolver = HostnameResolver(value)
+    hostname = hostnameResolver.get_hostname(args.n)
+    port = hostnameResolver.get_port(doc['port'])
 
     os.system('ssh {username}@{host} -p {port}'.format(host=hostname, \
         username=doc['username'], port=port))
-
-def get_port(value, default_port=22):
-    return value[value.find(':')+1:] if has_port(value) \
-        else default_port
-
-def get_hostname(value, n=0):
-    hostname = value if not has_port(value) else value[:value.find(':')]
-    return re.sub(r'\{.*\}', '%s' % n, hostname)
-
-def has_port(str):
-    return ':' in str
 
 def main():
     try:
