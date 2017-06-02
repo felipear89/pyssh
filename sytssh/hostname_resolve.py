@@ -16,7 +16,6 @@ class HostnameResolver:
             row = database.execute('select max(instance)+1 from control where datetime(\'now\') < \
                 datetime(time, \'+1 minutes\')').fetchone()
             next_val = 1 if row[0] is None else row[0]
-            print(next_val)
             database.execute('insert into control(instance, time) values (?, datetime(\'now\'))', (next_val,))
             database.con.commit()
             return next_val
@@ -28,6 +27,21 @@ class HostnameResolver:
             return self.hostname
         instance_number = instance if instance is None else \
             self.get_instance_number()
+        
+        start = self.start_range()
+        end = self.end_range()
+
+        # end - start
+        # 9 - 3 (range) = 6
+        # round((12/6-1) * 6) = 6
+        # round((7/6-1) * 6) = 1
+        # round((8/6-1) * 6) = 2
+
+        # 9 + 0 - 6 = [3]
+        # 9 + 1 - 6 = [4]
+        # 9 + 2 - 6 = [5]
+        # 9 + 3 - 6 = [6]
+
         return re.sub(r'\{.*\}', '%s' % instance_number, self.hostname)
 
     def get_port(self, default_port=22):
@@ -35,3 +49,14 @@ class HostnameResolver:
 
     def has_port(self, str):
         return ':' in str
+
+    def start_range(self):
+        found = re.search('{\d+-', self.value).group()
+        return re.sub("[\{\-\}]", "", found)
+    
+    def end_range(self):
+        found = re.search('-\d+}', self.value).group()
+        return re.sub("[\{\-\}]", "", found)
+
+
+
