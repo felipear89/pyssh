@@ -25,24 +25,20 @@ class HostnameResolver:
     def get_hostname(self, instance):
         if not self.is_multiple_hosts():
             return self.hostname
-        instance_number = instance if instance is None else \
-            self.get_instance_number()
+
+        process_number = instance if instance is None else self.get_instance_number()
         
         start = self.start_range()
         end = self.end_range()
+        range = end - start
+        slice_number = round((process_number / range - 1) * range)
 
-        # end - start
-        # 9 - 3 (range) = 6
-        # round((12/6-1) * 6) = 6
-        # round((7/6-1) * 6) = 1
-        # round((8/6-1) * 6) = 2
+        if slice_number < range:
+            instance_number = slice_number
+        else:
+            instance_number = start + slice_number
 
-        # 9 + 0 - 6 = [3]
-        # 9 + 1 - 6 = [4]
-        # 9 + 2 - 6 = [5]
-        # 9 + 3 - 6 = [6]
-
-        return re.sub(r'\{.*\}', '%s' % instance_number, self.hostname)
+        return re.sub(r'\{.*\}', '%s' % instance_number, self.hostname) 
 
     def get_port(self, default_port=22):
         return self.value[self.value.find(':')+1:] if self.has_port(self.value) else default_port

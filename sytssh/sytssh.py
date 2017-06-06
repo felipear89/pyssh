@@ -7,7 +7,7 @@ import re
 from os.path import expanduser
 import yaml
 import argcomplete
-from hostname_resolve import HostnameResolver
+from hostname_resolver import HostnameResolver
 
 CONFIG_PATH = expanduser('~/.sytssh.yaml')
 
