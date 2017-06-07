@@ -1,6 +1,6 @@
 """The setup.py file for Save Your Time SSH."""
 
-from setuptools import setup, find_packages
+from setuptools import setup
 from pip.req import parse_requirements
 
 REQUIREMENTS = parse_requirements('requirements.txt', session='hack')
@@ -17,10 +17,11 @@ setup(
     author_email='felipear89@gmail.com',
     url='https://github.com/felipear89/pyssh',
     license='GNU',
-    packages=find_packages(exclude=('tests', 'docs')),
+    package_dir={'': 'src'},
+    packages=[''],
     entry_points={
         'console_scripts': [
-            'sytssh = sytssh.sytssh:main'
+            'sytssh = sytssh:main'
         ]
     },
     setup_requires=['pytest-runner'],
