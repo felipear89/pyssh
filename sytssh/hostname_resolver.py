@@ -35,7 +35,7 @@ class HostnameResolver:
         end = int(self.end_range())
         range = end - start + 1
 
-        percent = round(math.modf(process_number / range)[0], 2)
+        percent = round(math.modf(float(process_number) / float(range))[0], 2)
         instance_number = int(range  * percent) if percent != 0.0 else end
 
         return re.sub(r'\{.*\}', '%s' % instance_number, self.hostname) 
