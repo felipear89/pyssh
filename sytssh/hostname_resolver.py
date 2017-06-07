@@ -1,6 +1,7 @@
 import database
 import re
 import sqlite3
+import math
 
 class HostnameResolver:
     
@@ -9,7 +10,7 @@ class HostnameResolver:
         self.hostname = value if not self.has_port(value) else value[:value.find(':')]
     
     def is_multiple_hosts(self):
-        return re.match('.*{\d+\-\d+}.*', self.hostname)
+        return re.match('.*{\d+\-\d+}.*', self.hostname) is not None
 
     def get_instance_number(self):
         try:
@@ -22,21 +23,20 @@ class HostnameResolver:
         except sqlite3.OperationalError:
             self.get_instance_number()
 
-    def get_hostname(self, instance):
+    def get_hostname(self, instance=0):
         if not self.is_multiple_hosts():
             return self.hostname
+        if instance > 0:
+            return re.sub(r'\{.*\}', '%s' % instance, self.hostname) 
 
-        process_number = instance if instance is None else self.get_instance_number()
-        
-        start = self.start_range()
-        end = self.end_range()
-        range = end - start
-        slice_number = round((process_number / range - 1) * range)
+        process_number = self.get_instance_number()
 
-        if slice_number < range:
-            instance_number = slice_number
-        else:
-            instance_number = start + slice_number
+        start = int(self.start_range())
+        end = int(self.end_range())
+        range = end - start + 1
+
+        percent = round(math.modf(process_number / range)[0], 2)
+        instance_number = int(range  * percent) if percent != 0.0 else end
 
         return re.sub(r'\{.*\}', '%s' % instance_number, self.hostname) 
 

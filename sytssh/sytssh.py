@@ -23,10 +23,10 @@ def parse_args(doc):
         dest='project')
 
     for project, attr in doc['hosts'].items():
-        parser_project = subparsers.add_parser(project)
-        parser_project.add_argument('environment', choices=attr.keys(), \
+        parserProject = subparsers.add_parser(project)
+        parserProject.add_argument('environment', choices=attr.keys(), \
             help='Choose the environment')
-        parser_project.add_argument('-n', help='Which instance of the host', type=int, default=0)
+        parserProject.add_argument('-n', help='Which instance of the host', type=int, default=0)
 
     argcomplete.autocomplete(parser)
     return parser.parse_args()
