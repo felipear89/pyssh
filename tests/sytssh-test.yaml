@@ -1,13 +1,9 @@
 username: root
 port: 22
 hosts:
-  project1:
-    qa: nix-project1.qa.mycompany
-    prod: nix-project1.mycompany
-  project2:
-    local: localhost:23
-    qa: nix-project2.qa.mycompany
-    prod: nix-project2.mycompany
-  devops:
-    qa: nix-devops.qa.mycompany
-    prod: nix-devops-{1-3}.mycompany
+  checkout:
+    qa: checkout.qa.mycompany:23
+    prod: checkout.mycompany
+  payments:
+    qa: payments.qa.mycompany:24
+    prod: payments.mycompany
