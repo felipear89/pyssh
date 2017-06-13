@@ -36,16 +36,13 @@ Run again to connect on the second machine
 `sytssh project-name-1 prod`
 
 
-## Auto complete
-Add this to enable auto-complete
+## Enable Auto-complete
 ### Bash
 ```
- $ activate-global-python-argcomplete
- $ eval "$(register-python-argcomplete sytssh)"
- ```
-
+ $ activate-global-python-argcomplete && eval "$(register-python-argcomplete sytssh)"
+```
 ### zsh
 
 ```
-$ autoload bashcompinit && bashcompinit && autoload compinit && compinit && eval "$(register-python-argcomplete sytssh)"
+ $ autoload bashcompinit && bashcompinit && autoload compinit && compinit && eval "$(register-python-argcomplete sytssh)"
 ```
