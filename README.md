@@ -37,7 +37,7 @@ Run again to connect on the second machine
 
 
 ## Auto complete
-
+Add this to enable auto-complete
 ### Bash
 ```
  $ activate-global-python-argcomplete
